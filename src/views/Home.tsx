@@ -22,7 +22,7 @@ const HomePage = () => {
 
 	return (
 		<AppContext.Provider value={contextValues}>
-			<div className="grid grid-cols-12 h-screen overflow-hidden">
+			<div className="grid grid-cols-12 h-screen overflow-hidden divide-x divide-gray-300">
 				<LeftColumn />
 				<RightColumn />
 			</div>
