@@ -1,7 +1,9 @@
+import HomePage from "./views/Home";
+
 function App() {
 	return (
 		<div className="App">
-			<h1 className="text-3xl text-green-500">Notes app</h1>
+			<HomePage />
 		</div>
 	);
 }
