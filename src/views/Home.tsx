@@ -4,7 +4,7 @@ import React, { createContext, useState, useContext } from "react";
 import LeftColumn from "../components/LeftColumn";
 import RightColumn from "../components/RightColumn";
 import { useGetAllNotes } from "../services/services";
-import { FetchNotesResponse, Note } from "../utils/interfaces";
+import { Note } from "../utils/interfaces";
 
 interface AppContext {
 	notes: Note[];
@@ -15,16 +15,8 @@ interface AppContext {
 const AppContext = createContext<AppContext | null>(null);
 
 const HomePage = () => {
-	const [notes, setNotes] = useState<Note[]>([]);
-	const [count, setCount] = useState(0);
-
-	const onFetchNotesSuccess = (res: FetchNotesResponse) => {
-		setNotes(res.notes);
-		setCount(res.count);
-		console.log("res", res.notes);
-	};
-	const data = useGetAllNotes({ onFetchNotesSuccess });
-	const isFetchingNotes = data.isLoading;
+	const { isLoading, count, notes } = useGetAllNotes();
+	const isFetchingNotes = isLoading;
 
 	const contextValues: AppContext = { notes, count, isFetchingNotes };
 
