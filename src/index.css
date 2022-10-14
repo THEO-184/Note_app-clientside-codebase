@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+	.left-col::-webkit-scrollbar {
+		@apply hidden;
+	}
+}
+
+@layer base {
+	body {
+		@apply bg-gray-100;
+	}
+}
