@@ -11,6 +11,7 @@ const AppContext = createContext<AppContextInterface | null>(null);
 const HomePage = () => {
 	const [title, setTitle] = useState("");
 	const [text, setText] = useState("");
+	const [showDelete, setShowDelete] = useState(false);
 	const { isLoading, count, notes } = useGetAllNotes();
 	const addNoteMutation = useCreateNote();
 
@@ -26,11 +27,13 @@ const HomePage = () => {
 	const handleEraseNotes = (e: React.FormEvent<HTMLButtonElement>) => {
 		setText("");
 		setTitle("");
+		setShowDelete(false);
 	};
 
 	const handleEditeNote = (id: string, e: React.FormEvent<HTMLDivElement>) => {
 		const note_details = notes.find((note) => note._id === id);
 		if (!note_details) return;
+		setShowDelete(true);
 		setTitle(note_details?.title);
 		setText(note_details?.body);
 	};
@@ -46,8 +49,10 @@ const HomePage = () => {
 		count,
 		isFetchingNotes,
 		title,
-		setTitle,
 		text,
+		showDelete,
+		setShowDelete,
+		setTitle,
 		setText,
 		handleChangeTitle,
 		handleChangeText,

@@ -19,8 +19,10 @@ export interface AppContextInterface {
 	count: number;
 	isFetchingNotes: boolean;
 	title: string;
-	setTitle: React.Dispatch<React.SetStateAction<string>>;
 	text: string;
+	showDelete: boolean;
+	setShowDelete: React.Dispatch<React.SetStateAction<boolean>>;
+	setTitle: React.Dispatch<React.SetStateAction<string>>;
 	setText: React.Dispatch<React.SetStateAction<string>>;
 	handleChangeTitle: (e: React.FormEvent<HTMLInputElement>) => void;
 	handleChangeText: (e: React.FormEvent<HTMLTextAreaElement>) => void;

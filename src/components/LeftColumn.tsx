@@ -5,21 +5,15 @@ import Note from "./Note";
 const LeftColumn = () => {
 	const data = useAppContext();
 
-	// if (data && data.isFetchingNotes) {
-	// 	return (
-	// 		<div className="col-span-4 overflow-auto left-col">
-	// 			<h1>Loading...</h1>
-	// 		</div>
-	// 	);
-	// }
-
 	return (
 		<div className="col-span-4  overflow-auto left-col">
 			<div className="flex justify-between items-center p-4">
-				<h6 className="text-rose-500 text-2xl italic font-bold">Notes</h6>
-				<button className="text-indigo-500" onClick={data?.handleAddNote}>
-					Add
-				</button>
+				<h6 className="text-rose-500 text-2xl italic font-bold">TheoNote</h6>
+				{!data?.showDelete && (
+					<button className="text-indigo-500" onClick={data?.handleAddNote}>
+						Add
+					</button>
+				)}
 			</div>
 
 			{data?.isFetchingNotes ? (
