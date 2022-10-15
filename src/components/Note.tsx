@@ -3,6 +3,8 @@ import ReactMarkdown from "react-markdown";
 
 import { Note as NoteInterface } from "../utils/interfaces";
 import Card from "./layout/Card";
+import MarkComponent from "./MarkComponent";
+import Markdown from "./Markdown";
 
 interface Props {
 	note: NoteInterface;
@@ -21,7 +23,7 @@ const Note = ({ note }: Props) => {
 					<button className="text-rose-600">Delete</button>
 				</div>
 				<div className="">
-					<ReactMarkdown className="block text-base">{body}</ReactMarkdown>
+					<Markdown children={body} component={MarkComponent} />
 					<p>
 						<small className="text-gray-500">
 							last modified {date_updated}
