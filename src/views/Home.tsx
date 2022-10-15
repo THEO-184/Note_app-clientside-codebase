@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext } from "react";
 // local imports";
 import LeftColumn from "../components/LeftColumn";
 import RightColumn from "../components/RightColumn";
-import { useGetAllNotes } from "../services/services";
+import { useCreateNote, useGetAllNotes } from "../services/services";
 import { Note } from "../utils/interfaces";
 
 interface AppContext {
@@ -17,12 +17,14 @@ interface AppContext {
 	handleChangeTitle: (e: React.FormEvent<HTMLInputElement>) => void;
 	handleChangeText: (e: React.FormEvent<HTMLTextAreaElement>) => void;
 	handleEditeNote: (id: string, e: React.FormEvent<HTMLDivElement>) => void;
+	handleAddNote: (e: React.FormEvent<HTMLButtonElement>) => void;
 }
 
 const AppContext = createContext<AppContext | null>(null);
 
 const HomePage = () => {
 	const { isLoading, count, notes } = useGetAllNotes();
+	const addNoteMutation = useCreateNote();
 	const isFetchingNotes = isLoading;
 	const [title, setTitle] = useState("");
 	const [text, setText] = useState("");
@@ -41,6 +43,12 @@ const HomePage = () => {
 		setText(note_details?.body);
 	};
 
+	const handleAddNote = (e: React.FormEvent<HTMLButtonElement>) => {
+		addNoteMutation.mutate({ body: text, title });
+		setText("");
+		setTitle("");
+	};
+
 	const contextValues: AppContext = {
 		notes,
 		count,
@@ -52,6 +60,7 @@ const HomePage = () => {
 		handleChangeTitle,
 		handleChangeText,
 		handleEditeNote,
+		handleAddNote,
 	};
 
 	return (

@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { getAllNotes } from "./apis";
-import { useQuery } from "@tanstack/react-query";
-import { Note, onFetchNotes } from "../utils/interfaces";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
+// local imports
+import { createNote, getAllNotes } from "./apis";
+import { Note } from "../utils/interfaces";
+import { getErrorMessage, messageNotification } from "../utils/functions";
 
 export const useGetAllNotes = () => {
 	const [notes, setNotes] = useState<Note[]>([]);
@@ -12,9 +15,24 @@ export const useGetAllNotes = () => {
 			setCount(response.count);
 		},
 		onError: (error) => {
-			console.log("users error", error);
+			const message = getErrorMessage(error);
+			messageNotification("error", message);
 		},
 	});
 
 	return { error, isLoading, notes, count };
+};
+
+export const useCreateNote = () => {
+	const queryClient = useQueryClient();
+	return useMutation(createNote, {
+		onSuccess: () => {
+			queryClient.invalidateQueries(["notes"]);
+			messageNotification("success", "note saved successfully");
+		},
+		onError: (error) => {
+			const message = getErrorMessage(error);
+			messageNotification("error", message);
+		},
+	});
 };
