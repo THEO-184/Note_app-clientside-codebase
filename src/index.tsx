@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-
+import { BrowserRouter as Router } from "react-router-dom";
 // local imports
 import App from "./App";
 import "./index.css";
@@ -14,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
-			<App />
+			<Router>
+				<App />
+			</Router>
 		</QueryClientProvider>
 	</React.StrictMode>
 );
