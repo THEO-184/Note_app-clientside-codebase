@@ -21,7 +21,7 @@ const RightColumn = () => {
 			</div>
 			<div className="w-full">
 				<textarea
-					defaultValue={context?.text}
+					value={context?.text}
 					className=" w-full block p-5 border-2 border-gray-300 focus:border-gray-300 focus:outline-none "
 					rows={10}
 					onChange={context?.handleChangeText}

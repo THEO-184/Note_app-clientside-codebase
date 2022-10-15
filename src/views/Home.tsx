@@ -16,6 +16,7 @@ interface AppContext {
 	setText: React.Dispatch<React.SetStateAction<string>>;
 	handleChangeTitle: (e: React.FormEvent<HTMLInputElement>) => void;
 	handleChangeText: (e: React.FormEvent<HTMLTextAreaElement>) => void;
+	handleEditeNote: (id: string, e: React.FormEvent<HTMLDivElement>) => void;
 }
 
 const AppContext = createContext<AppContext | null>(null);
@@ -31,8 +32,15 @@ const HomePage = () => {
 	};
 	const handleChangeText = (e: React.FormEvent<HTMLTextAreaElement>) => {
 		setText(e.currentTarget.value);
-		console.log("text", e.currentTarget.value);
 	};
+
+	const handleEditeNote = (id: string, e: React.FormEvent<HTMLDivElement>) => {
+		const note_details = notes.find((note) => note._id === id);
+		if (!note_details) return;
+		setTitle(note_details?.title);
+		setText(note_details?.body);
+	};
+
 	const contextValues: AppContext = {
 		notes,
 		count,
@@ -43,6 +51,7 @@ const HomePage = () => {
 		setText,
 		handleChangeTitle,
 		handleChangeText,
+		handleEditeNote,
 	};
 
 	return (

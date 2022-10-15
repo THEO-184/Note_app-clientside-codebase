@@ -17,7 +17,7 @@ const LeftColumn = () => {
 			</div>
 			{data &&
 				data.notes.map((note) => {
-					return <Note note={note} />;
+					return <Note note={note} key={note._id} />;
 				})}
 		</div>
 	);
