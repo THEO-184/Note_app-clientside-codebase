@@ -9,6 +9,14 @@ const RightColumn = () => {
 
 	return (
 		<div className="col-span-8 p-4">
+			<div className="flex items-center justify-end text-white ">
+				<button
+					className="bg-rose-500 hover:bg-rose-600 p-2 mb-2 rounded-xl text-xs"
+					onClick={context?.handleEraseNotes}
+				>
+					Erase notes
+				</button>
+			</div>
 			<div className="w-full h-10 mb-4">
 				<input
 					type="text"

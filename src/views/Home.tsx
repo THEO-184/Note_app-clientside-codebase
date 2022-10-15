@@ -23,6 +23,11 @@ const HomePage = () => {
 		setText(e.currentTarget.value);
 	};
 
+	const handleEraseNotes = (e: React.FormEvent<HTMLButtonElement>) => {
+		setText("");
+		setTitle("");
+	};
+
 	const handleEditeNote = (id: string, e: React.FormEvent<HTMLDivElement>) => {
 		const note_details = notes.find((note) => note._id === id);
 		if (!note_details) return;
@@ -48,6 +53,7 @@ const HomePage = () => {
 		handleChangeText,
 		handleEditeNote,
 		handleAddNote,
+		handleEraseNotes,
 	};
 
 	return (

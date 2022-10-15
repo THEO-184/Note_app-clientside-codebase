@@ -26,4 +26,5 @@ export interface AppContextInterface {
 	handleChangeText: (e: React.FormEvent<HTMLTextAreaElement>) => void;
 	handleEditeNote: (id: string, e: React.FormEvent<HTMLDivElement>) => void;
 	handleAddNote: (e: React.FormEvent<HTMLButtonElement>) => void;
+	handleEraseNotes: (e: React.FormEvent<HTMLButtonElement>) => void;
 }
