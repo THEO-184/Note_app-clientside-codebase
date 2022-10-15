@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // local imports
-import { createNote, getAllNotes } from "./apis";
+import { createNote, deleteNote, getAllNotes } from "./apis";
 import { Note } from "../utils/interfaces";
 import { getErrorMessage, messageNotification } from "../utils/functions";
 
@@ -29,6 +29,20 @@ export const useCreateNote = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries(["notes"]);
 			messageNotification("success", "note saved successfully");
+		},
+		onError: (error) => {
+			const message = getErrorMessage(error);
+			messageNotification("error", message);
+		},
+	});
+};
+
+export const useDeleteNote = (id: string) => {
+	const queryClient = useQueryClient();
+	return useMutation(() => deleteNote(id), {
+		onSuccess: (response) => {
+			queryClient.invalidateQueries(["notes"]);
+			messageNotification("success", response.msg);
 		},
 		onError: (error) => {
 			const message = getErrorMessage(error);

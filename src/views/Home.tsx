@@ -4,30 +4,17 @@ import React, { createContext, useState, useContext } from "react";
 import LeftColumn from "../components/LeftColumn";
 import RightColumn from "../components/RightColumn";
 import { useCreateNote, useGetAllNotes } from "../services/services";
-import { Note } from "../utils/interfaces";
+import { AppContextInterface, Note } from "../utils/interfaces";
 
-interface AppContext {
-	notes: Note[];
-	count: number;
-	isFetchingNotes: boolean;
-	title: string;
-	setTitle: React.Dispatch<React.SetStateAction<string>>;
-	text: string;
-	setText: React.Dispatch<React.SetStateAction<string>>;
-	handleChangeTitle: (e: React.FormEvent<HTMLInputElement>) => void;
-	handleChangeText: (e: React.FormEvent<HTMLTextAreaElement>) => void;
-	handleEditeNote: (id: string, e: React.FormEvent<HTMLDivElement>) => void;
-	handleAddNote: (e: React.FormEvent<HTMLButtonElement>) => void;
-}
-
-const AppContext = createContext<AppContext | null>(null);
+const AppContext = createContext<AppContextInterface | null>(null);
 
 const HomePage = () => {
-	const { isLoading, count, notes } = useGetAllNotes();
-	const addNoteMutation = useCreateNote();
-	const isFetchingNotes = isLoading;
 	const [title, setTitle] = useState("");
 	const [text, setText] = useState("");
+	const { isLoading, count, notes } = useGetAllNotes();
+	const addNoteMutation = useCreateNote();
+
+	const isFetchingNotes = isLoading;
 
 	const handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value);
@@ -49,7 +36,7 @@ const HomePage = () => {
 		setTitle("");
 	};
 
-	const contextValues: AppContext = {
+	const contextValues: AppContextInterface = {
 		notes,
 		count,
 		isFetchingNotes,

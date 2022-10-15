@@ -16,7 +16,7 @@ function App() {
 				toastOptions={{
 					// Define default options
 					className: "",
-					duration: 2000,
+					duration: 3000,
 					style: {
 						background: "#fff",
 						color: "#000",

@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { useDeleteNote } from "../services/services";
 
 import { Note as NoteInterface } from "../utils/interfaces";
 import { useAppContext } from "../views/Home";
@@ -11,11 +12,18 @@ interface Props {
 }
 
 const Note = ({ note }: Props) => {
+	const deleteNoteMutation = useDeleteNote(note._id);
 	const { body, createdAt, title, updatedAt } = note;
 	const date_updated = new Date(updatedAt).toDateString();
 	const date_created = new Date(createdAt).toDateString();
 
 	const context = useAppContext();
+
+	const handleDeleteNote = (e: React.FormEvent<HTMLButtonElement>) => {
+		deleteNoteMutation.mutate();
+		context?.setText("");
+		context?.setTitle("");
+	};
 
 	return (
 		<div
@@ -25,7 +33,9 @@ const Note = ({ note }: Props) => {
 			<Card>
 				<div className="flex items-center justify-between">
 					<p className="font-bold text-black text-base">{title}</p>
-					<button className="text-rose-600">Delete</button>
+					<button className="text-rose-600 z-40" onClick={handleDeleteNote}>
+						Delete
+					</button>
 				</div>
 				<div className="">
 					<Markdown children={body} component={MarkComponent} />

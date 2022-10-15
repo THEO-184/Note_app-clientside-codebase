@@ -5,13 +5,13 @@ import Note from "./Note";
 const LeftColumn = () => {
 	const data = useAppContext();
 
-	if (data && data.isFetchingNotes) {
-		return (
-			<div className="col-span-4 overflow-auto left-col">
-				<h1>Loading...</h1>
-			</div>
-		);
-	}
+	// if (data && data.isFetchingNotes) {
+	// 	return (
+	// 		<div className="col-span-4 overflow-auto left-col">
+	// 			<h1>Loading...</h1>
+	// 		</div>
+	// 	);
+	// }
 
 	return (
 		<div className="col-span-4  overflow-auto left-col">
@@ -21,10 +21,16 @@ const LeftColumn = () => {
 					Add
 				</button>
 			</div>
-			{data &&
-				data.notes.map((note) => {
+
+			{data?.isFetchingNotes ? (
+				<div className="col-span-4 overflow-auto left-col">
+					<h1>Loading...</h1>
+				</div>
+			) : (
+				data?.notes.map((note) => {
 					return <Note note={note} key={note._id} />;
-				})}
+				})
+			)}
 		</div>
 	);
 };
