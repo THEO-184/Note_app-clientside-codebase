@@ -11,3 +11,5 @@ export interface FetchNotesResponse extends Note {
 	notes: Note[];
 }
 export type onFetchNotes = (res: FetchNotesResponse) => void;
+
+export type toastType = "error" | "success";

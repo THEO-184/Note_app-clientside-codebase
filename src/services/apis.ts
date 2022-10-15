@@ -12,3 +12,10 @@ export const getAllNotes = async (): Promise<{
 	const res = await api.get("/notes");
 	return res.data;
 };
+
+export const createNote = async (
+	data: Pick<Note, "title" | "body">
+): Promise<{ note: Note }> => {
+	const res = await api.post("/notes", data);
+	return res.data;
+};
