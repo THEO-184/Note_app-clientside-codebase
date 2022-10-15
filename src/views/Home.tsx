@@ -10,6 +10,12 @@ interface AppContext {
 	notes: Note[];
 	count: number;
 	isFetchingNotes: boolean;
+	title: string;
+	setTitle: React.Dispatch<React.SetStateAction<string>>;
+	text: string;
+	setText: React.Dispatch<React.SetStateAction<string>>;
+	handleChangeTitle: (e: React.FormEvent<HTMLInputElement>) => void;
+	handleChangeText: (e: React.FormEvent<HTMLTextAreaElement>) => void;
 }
 
 const AppContext = createContext<AppContext | null>(null);
@@ -17,8 +23,27 @@ const AppContext = createContext<AppContext | null>(null);
 const HomePage = () => {
 	const { isLoading, count, notes } = useGetAllNotes();
 	const isFetchingNotes = isLoading;
+	const [title, setTitle] = useState("");
+	const [text, setText] = useState("");
 
-	const contextValues: AppContext = { notes, count, isFetchingNotes };
+	const handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
+		setTitle(e.currentTarget.value);
+	};
+	const handleChangeText = (e: React.FormEvent<HTMLTextAreaElement>) => {
+		setText(e.currentTarget.value);
+		console.log("text", e.currentTarget.value);
+	};
+	const contextValues: AppContext = {
+		notes,
+		count,
+		isFetchingNotes,
+		title,
+		setTitle,
+		text,
+		setText,
+		handleChangeTitle,
+		handleChangeText,
+	};
 
 	return (
 		<AppContext.Provider value={contextValues}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useAppContext } from "../views/Home";
 import Note from "./Note";
 
@@ -23,4 +23,6 @@ const LeftColumn = () => {
 	);
 };
 
-export default LeftColumn;
+const memoizedLeftColumn = memo(LeftColumn);
+
+export default memoizedLeftColumn;

@@ -1,4 +1,6 @@
 import { memo } from "react";
+import ReactMarkdown from "react-markdown";
+
 import { Note as NoteInterface } from "../utils/interfaces";
 import Card from "./layout/Card";
 
@@ -19,7 +21,7 @@ const Note = ({ note }: Props) => {
 					<button className="text-rose-600">Delete</button>
 				</div>
 				<div className="">
-					<span className="block text-base">{body}</span>
+					<ReactMarkdown className="block text-base">{body}</ReactMarkdown>
 					<p>
 						<small className="text-gray-500">
 							last modified {date_updated}
