@@ -11,14 +11,19 @@ const RightColumn = () => {
 
 	return (
 		<div className="col-span-8 p-4">
-			<div className="flex items-center justify-end text-white ">
+			<div className="flex items-center justify-between text-white p-2 ">
+				{!context?.showDelete && (
+					<button className="text-indigo-500" onClick={context?.handleAddNote}>
+						Add
+					</button>
+				)}
 				<button
-					className={`bg-rose-500 hover:bg-rose-600 p-2 mb-2 rounded-xl text-xs ${
+					className={`text-rose-500 rounded-xl ${
 						hasUserType ? "visible" : "invisible"
 					}`}
 					onClick={context?.handleEraseNotes}
 				>
-					Erase notes
+					Erase
 				</button>
 			</div>
 			<div className="w-full h-10 mb-4">

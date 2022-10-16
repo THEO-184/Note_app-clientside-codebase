@@ -9,7 +9,7 @@ import { getErrorMessage, messageNotification } from "../utils/functions";
 export const useGetAllNotes = () => {
 	const [notes, setNotes] = useState<Note[]>([]);
 	const [count, setCount] = useState(0);
-	const { error, isLoading } = useQuery(["notes"], getAllNotes, {
+	const { error, isLoading, data } = useQuery(["notes"], getAllNotes, {
 		onSuccess: (response) => {
 			setNotes(response.notes);
 			setCount(response.count);
@@ -20,7 +20,7 @@ export const useGetAllNotes = () => {
 		},
 	});
 
-	return { error, isLoading, notes, count };
+	return { isLoading, notes, count, data, setNotes };
 };
 
 export const useCreateNote = () => {

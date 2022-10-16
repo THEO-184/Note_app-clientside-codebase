@@ -11,15 +11,30 @@ const AppContext = createContext<AppContextInterface | null>(null);
 const HomePage = () => {
 	const [title, setTitle] = useState("");
 	const [text, setText] = useState("");
+	const [searchNote, setSearchNote] = useState("");
 	const [showDelete, setShowDelete] = useState(false);
-	const { isLoading, count, notes } = useGetAllNotes();
+	const { isLoading, count, notes, data, setNotes } = useGetAllNotes();
 	const addNoteMutation = useCreateNote();
 
 	const isFetchingNotes = isLoading;
+	console.log("notes", data?.notes);
 
 	const handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value);
+		console.log("title", e.currentTarget.value);
 	};
+	const handleSearchNote = (e: React.FormEvent<HTMLInputElement>) => {
+		const input = e.currentTarget.value.toLowerCase();
+		const filterNotes = data?.notes.filter(
+			(note) =>
+				note.title.toLowerCase().includes(input) ||
+				note.body.toLowerCase().includes(input)
+		);
+		if (!filterNotes) return;
+		setNotes(filterNotes);
+		setSearchNote(e.currentTarget.value);
+	};
+
 	const handleChangeText = (e: React.FormEvent<HTMLTextAreaElement>) => {
 		setText(e.currentTarget.value);
 	};
@@ -51,11 +66,14 @@ const HomePage = () => {
 		title,
 		text,
 		showDelete,
+		searchNote,
 		setShowDelete,
+		setSearchNote,
 		setTitle,
 		setText,
 		handleChangeTitle,
 		handleChangeText,
+		handleSearchNote,
 		handleEditeNote,
 		handleAddNote,
 		handleEraseNotes,
