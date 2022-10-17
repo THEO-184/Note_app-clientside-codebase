@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // local imports
-import { createNote, deleteNote, getAllNotes } from "./apis";
+import { createNote, deleteNote, getAllNotes, updateNote } from "./apis";
 import { Note } from "../utils/interfaces";
 import { getErrorMessage, messageNotification } from "../utils/functions";
 
 export const useGetAllNotes = () => {
 	const [notes, setNotes] = useState<Note[]>([]);
 	const [count, setCount] = useState(0);
-	const { error, isLoading, data } = useQuery(["notes"], getAllNotes, {
+	const { isLoading, data } = useQuery(["notes"], getAllNotes, {
 		onSuccess: (response) => {
 			setNotes(response.notes);
 			setCount(response.count);
@@ -49,4 +49,20 @@ export const useDeleteNote = (id: string) => {
 			messageNotification("error", message);
 		},
 	});
+};
+
+export const useUpdateNote = (id: string) => {
+	const queryClient = useQueryClient();
+	return useMutation(
+		(data: Pick<Note, "title" | "body">) => updateNote(id, data),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(["notes"]);
+			},
+			onError: (error) => {
+				const message = getErrorMessage(error);
+				messageNotification("error", message);
+			},
+		}
+	);
 };

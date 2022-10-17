@@ -3,7 +3,12 @@ import React, { createContext, useState, useContext } from "react";
 // local imports";
 import LeftColumn from "../components/LeftColumn";
 import RightColumn from "../components/RightColumn";
-import { useCreateNote, useGetAllNotes } from "../services/services";
+import {
+	useCreateNote,
+	useGetAllNotes,
+	useUpdateNote,
+} from "../services/services";
+import { useDebounce } from "../utils/hooks/useUpdateNotes";
 import { AppContextInterface, Note } from "../utils/interfaces";
 
 const AppContext = createContext<AppContextInterface | null>(null);
@@ -13,11 +18,13 @@ const HomePage = () => {
 	const [text, setText] = useState("");
 	const [searchNote, setSearchNote] = useState("");
 	const [showDelete, setShowDelete] = useState(false);
+
+	const [noteId, setNoteId] = useState("");
 	const { isLoading, count, notes, data, setNotes } = useGetAllNotes();
+	useDebounce({ title, body: text, id: noteId, showDelete });
 	const addNoteMutation = useCreateNote();
 
 	const isFetchingNotes = isLoading;
-	console.log("notes", data?.notes);
 
 	const handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value);
@@ -51,6 +58,7 @@ const HomePage = () => {
 		setShowDelete(true);
 		setTitle(note_details?.title);
 		setText(note_details?.body);
+		setNoteId(id);
 	};
 
 	const handleAddNote = (e: React.FormEvent<HTMLButtonElement>) => {
