@@ -11,6 +11,7 @@ interface Props {
 const Markdown = ({ children, component }: Props) => {
 	return (
 		<ReactMarkdown
+			className="text-xs sm:text-base"
 			children={children}
 			components={{
 				code: component,

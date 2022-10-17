@@ -22,9 +22,10 @@ const Note = ({ note }: Props) => {
 	const context = useAppContext();
 
 	const handleDeleteNote = (e: React.FormEvent<HTMLButtonElement>) => {
-		deleteNoteMutation.mutate();
+		context?.setIsUserEditing(false);
 		context?.setText("");
 		context?.setTitle("");
+		deleteNoteMutation.mutate();
 	};
 
 	return (
@@ -33,21 +34,26 @@ const Note = ({ note }: Props) => {
 			onClick={(e) => context?.handleEditeNote(note._id, e)}
 		>
 			<Card>
-				<div className="flex items-center justify-between">
-					<p className="font-bold text-black text-base">{title}</p>
-					<Button className="text-rose-600 z-40" onClick={handleDeleteNote}>
+				<Box className="flex items-center justify-between mb-1 sm:mb-0 ">
+					<p className="font-bold text-black text-xs sm:text-base">{title}</p>
+					<Button
+						className="text-xs sm:text-base text-rose-600 z-40"
+						onClick={handleDeleteNote}
+					>
 						Delete
 					</Button>
-				</div>
-				<Box className="">
+				</Box>
+				<Box>
 					<Markdown children={body} component={MarkComponent} />
 					<p>
-						<small className="text-gray-500">
-							last modified {date_updated}
+						<small className="text-xs sm:text-base text-gray-500">
+							last updated {date_updated}
 						</small>
 					</p>
 					<p>
-						<small className="text-gray-500">Last created {date_created}</small>
+						<small className="text-xs sm:text-base text-gray-500">
+							last created {date_created}
+						</small>
 					</p>
 				</Box>
 			</Card>
