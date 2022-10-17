@@ -19,7 +19,7 @@ const RightColumn = () => {
 			<Box className="flex items-center justify-between text-white p-2 ">
 				{!context?.isUserEditing && (
 					<Button className="text-indigo-500" onClick={context?.handleAddNote}>
-						Add
+						Save
 					</Button>
 				)}
 				<Button
