@@ -58,8 +58,6 @@ const HomePage = () => {
 
 	const handleAddNote = (e: React.FormEvent<HTMLButtonElement>) => {
 		addNoteMutation.mutate({ body: text, title });
-		setText("");
-		setTitle("");
 	};
 
 	const contextValues: AppContextInterface = {
