@@ -1,4 +1,3 @@
-import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 // local imports
@@ -23,9 +22,7 @@ function App() {
 					},
 				}}
 			/>
-			<Routes>
-				<Route element={<HomePage />} path="/" />
-			</Routes>
+			<HomePage />
 		</>
 	);
 }
