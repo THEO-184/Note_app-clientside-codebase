@@ -13,7 +13,7 @@ export const useDebounce = ({ title, body, id, isUserEditing }: Props) => {
 	const updateNoteMutation = useUpdateNote(id);
 	useEffect(() => {
 		let updateNote: NodeJS.Timeout;
-		if (isUserEditing) {
+		if (isUserEditing && id) {
 			updateNote = setTimeout(() => {
 				updateNoteMutation.mutate({ body, title });
 			}, 500);
