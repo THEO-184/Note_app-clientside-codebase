@@ -2,7 +2,7 @@ import axios from "axios";
 import { Note } from "../utils/interfaces";
 
 const api = axios.create({
-	baseURL: "http://localhost:5000/api/v1",
+	baseURL: "https://note-app-iwqr.onrender.com/api/v1",
 });
 
 export const getAllNotes = async (): Promise<{

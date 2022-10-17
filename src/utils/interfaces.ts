@@ -20,9 +20,9 @@ export interface AppContextInterface {
 	isFetchingNotes: boolean;
 	title: string;
 	text: string;
-	showDelete: boolean;
+	isUserEditing: boolean;
 	searchNote: string;
-	setShowDelete: React.Dispatch<React.SetStateAction<boolean>>;
+	setIsUserEditing: React.Dispatch<React.SetStateAction<boolean>>;
 	setSearchNote: React.Dispatch<React.SetStateAction<string>>;
 	setTitle: React.Dispatch<React.SetStateAction<string>>;
 	setText: React.Dispatch<React.SetStateAction<string>>;

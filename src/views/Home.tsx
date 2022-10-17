@@ -3,12 +3,8 @@ import React, { createContext, useState, useContext } from "react";
 // local imports";
 import LeftColumn from "../components/LeftColumn";
 import RightColumn from "../components/RightColumn";
-import {
-	useCreateNote,
-	useGetAllNotes,
-	useUpdateNote,
-} from "../services/services";
-import { useDebounce } from "../utils/hooks/useUpdateNotes";
+import { useCreateNote, useGetAllNotes } from "../services/services";
+import { useDebounce } from "../utils/hooks/useDebounce";
 import { AppContextInterface, Note } from "../utils/interfaces";
 
 const AppContext = createContext<AppContextInterface | null>(null);
@@ -17,25 +13,24 @@ const HomePage = () => {
 	const [title, setTitle] = useState("");
 	const [text, setText] = useState("");
 	const [searchNote, setSearchNote] = useState("");
-	const [showDelete, setShowDelete] = useState(false);
-
+	const [isUserEditing, setIsUserEditing] = useState(false);
 	const [noteId, setNoteId] = useState("");
+
 	const { isLoading, count, notes, data, setNotes } = useGetAllNotes();
-	useDebounce({ title, body: text, id: noteId, showDelete });
+	useDebounce({ title, body: text, id: noteId, isUserEditing });
 	const addNoteMutation = useCreateNote();
 
 	const isFetchingNotes = isLoading;
 
 	const handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value);
-		console.log("title", e.currentTarget.value);
 	};
 	const handleSearchNote = (e: React.FormEvent<HTMLInputElement>) => {
-		const input = e.currentTarget.value.toLowerCase();
+		const user_input = e.currentTarget.value.toLowerCase();
 		const filterNotes = data?.notes.filter(
 			(note) =>
-				note.title.toLowerCase().includes(input) ||
-				note.body.toLowerCase().includes(input)
+				note.title.toLowerCase().includes(user_input) ||
+				note.body.toLowerCase().includes(user_input)
 		);
 		if (!filterNotes) return;
 		setNotes(filterNotes);
@@ -49,13 +44,13 @@ const HomePage = () => {
 	const handleEraseNotes = (e: React.FormEvent<HTMLButtonElement>) => {
 		setText("");
 		setTitle("");
-		setShowDelete(false);
+		setIsUserEditing(false);
 	};
 
 	const handleEditeNote = (id: string, e: React.FormEvent<HTMLDivElement>) => {
 		const note_details = notes.find((note) => note._id === id);
 		if (!note_details) return;
-		setShowDelete(true);
+		setIsUserEditing(true);
 		setTitle(note_details?.title);
 		setText(note_details?.body);
 		setNoteId(id);
@@ -73,9 +68,9 @@ const HomePage = () => {
 		isFetchingNotes,
 		title,
 		text,
-		showDelete,
+		isUserEditing,
 		searchNote,
-		setShowDelete,
+		setIsUserEditing,
 		setSearchNote,
 		setTitle,
 		setText,

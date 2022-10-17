@@ -12,7 +12,7 @@ const RightColumn = () => {
 	return (
 		<div className="col-span-8 p-4">
 			<div className="flex items-center justify-between text-white p-2 ">
-				{!context?.showDelete && (
+				{!context?.isUserEditing && (
 					<button className="text-indigo-500" onClick={context?.handleAddNote}>
 						Add
 					</button>

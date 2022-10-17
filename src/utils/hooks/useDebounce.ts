@@ -1,4 +1,4 @@
-import { updateNote } from "./../../services/apis";
+import { updateNote } from "../../services/apis";
 import { useState, useEffect } from "react";
 import { useUpdateNote } from "../../services/services";
 
@@ -6,14 +6,14 @@ interface Props {
 	title: string;
 	body: string;
 	id: string;
-	showDelete: boolean;
+	isUserEditing: boolean;
 }
 
-export const useDebounce = ({ title, body, id, showDelete }: Props) => {
+export const useDebounce = ({ title, body, id, isUserEditing }: Props) => {
 	const updateNoteMutation = useUpdateNote(id);
 	useEffect(() => {
 		let updateNote: NodeJS.Timeout;
-		if (showDelete) {
+		if (isUserEditing) {
 			updateNote = setTimeout(() => {
 				updateNoteMutation.mutate({ body, title });
 			}, 500);
