@@ -3,6 +3,8 @@ import { useDeleteNote } from "../services/services";
 
 import { Note as NoteInterface } from "../utils/interfaces";
 import { useAppContext } from "../views/Home";
+import Button from "./Forms/Buttons/Button";
+import Box from "./layout/Box";
 import Card from "./layout/Card";
 import MarkComponent from "./MarkComponent";
 import Markdown from "./Markdown";
@@ -33,11 +35,11 @@ const Note = ({ note }: Props) => {
 			<Card>
 				<div className="flex items-center justify-between">
 					<p className="font-bold text-black text-base">{title}</p>
-					<button className="text-rose-600 z-40" onClick={handleDeleteNote}>
+					<Button className="text-rose-600 z-40" onClick={handleDeleteNote}>
 						Delete
-					</button>
+					</Button>
 				</div>
-				<div className="">
+				<Box className="">
 					<Markdown children={body} component={MarkComponent} />
 					<p>
 						<small className="text-gray-500">
@@ -47,7 +49,7 @@ const Note = ({ note }: Props) => {
 					<p>
 						<small className="text-gray-500">Last created {date_created}</small>
 					</p>
-				</div>
+				</Box>
 			</Card>
 		</div>
 	);

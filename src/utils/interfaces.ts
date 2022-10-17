@@ -14,6 +14,19 @@ export type onFetchNotes = (res: FetchNotesResponse) => void;
 
 export type toastType = "error" | "success";
 
+export type AsProps<T extends React.ElementType> = {
+	as?: T;
+};
+
+export type PolymorphicComponentProp<
+	T extends React.ElementType,
+	Props = {}
+> = React.PropsWithChildren<Props & AsProps<T>> &
+	Omit<React.ComponentPropsWithoutRef<T>, PropsToOmit<T, Props>>;
+
+export type PropsToOmit<T extends React.ElementType, P> = keyof (AsProps<T> &
+	P);
+
 export interface AppContextInterface {
 	notes: Note[];
 	count: number;
