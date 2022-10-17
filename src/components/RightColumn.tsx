@@ -22,6 +22,10 @@ const RightColumn = () => {
 						Save
 					</Button>
 				)}
+
+				{context?.isUserEditing && (
+					<p className="text-gray-500 justify-self-center">{context?.save}</p>
+				)}
 				<Button
 					className={`text-rose-500 rounded-xl ${
 						hasUserType ? "visible" : "invisible"

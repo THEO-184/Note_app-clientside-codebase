@@ -46,12 +46,12 @@ const Note = ({ note }: Props) => {
 				<Box>
 					<Markdown children={body} component={MarkComponent} />
 					<p>
-						<small className="text-xs sm:text-base text-gray-500">
+						<small className="text-xs  text-gray-500">
 							last updated {date_updated}
 						</small>
 					</p>
 					<p>
-						<small className="text-xs sm:text-base text-gray-500">
+						<small className="text-xs  text-gray-500">
 							last created {date_created}
 						</small>
 					</p>

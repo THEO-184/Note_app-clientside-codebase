@@ -35,6 +35,7 @@ export interface AppContextInterface {
 	text: string;
 	isUserEditing: boolean;
 	searchNote: string;
+	save: string;
 	setIsUserEditing: React.Dispatch<React.SetStateAction<boolean>>;
 	setSearchNote: React.Dispatch<React.SetStateAction<string>>;
 	setTitle: React.Dispatch<React.SetStateAction<string>>;

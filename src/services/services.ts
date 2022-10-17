@@ -52,11 +52,13 @@ export const useDeleteNote = (id: string) => {
 };
 
 export const useUpdateNote = (id: string) => {
+	const [save, setSave] = useState("");
 	const queryClient = useQueryClient();
-	return useMutation(
+	const updateNoteMutation = useMutation(
 		(data: Pick<Note, "title" | "body">) => updateNote(id, data),
 		{
 			onSuccess: () => {
+				setSave("saved");
 				queryClient.invalidateQueries(["notes"]);
 			},
 			onError: (error) => {
@@ -65,4 +67,6 @@ export const useUpdateNote = (id: string) => {
 			},
 		}
 	);
+
+	return { updateNoteMutation, save, setSave };
 };

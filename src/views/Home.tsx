@@ -17,7 +17,12 @@ const HomePage = () => {
 	const [noteId, setNoteId] = useState("");
 
 	const { isLoading, count, notes, data, setNotes } = useGetAllNotes();
-	useDebounce({ title, body: text, id: noteId, isUserEditing });
+	const { save, setSave } = useDebounce({
+		title,
+		body: text,
+		id: noteId,
+		isUserEditing,
+	});
 	const addNoteMutation = useCreateNote();
 
 	const isFetchingNotes = isLoading;
@@ -68,6 +73,7 @@ const HomePage = () => {
 		text,
 		isUserEditing,
 		searchNote,
+		save,
 		setIsUserEditing,
 		setSearchNote,
 		setTitle,
