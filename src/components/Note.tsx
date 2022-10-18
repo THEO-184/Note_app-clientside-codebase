@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { useDeleteNote } from "../services/services";
 
+// local imports
 import { Note as NoteInterface } from "../utils/interfaces";
 import { useAppContext } from "../views/Home";
 import Button from "./Forms/Buttons/Button";
@@ -14,16 +14,11 @@ interface Props {
 }
 
 const Note = ({ note }: Props) => {
-	const deleteNoteMutation = useDeleteNote(note._id);
 	const { body, createdAt, title, updatedAt } = note;
 	const date_updated = new Date(updatedAt).toDateString();
 	const date_created = new Date(createdAt).toDateString();
 
 	const context = useAppContext();
-
-	const handleDeleteNote = (e: React.FormEvent<HTMLButtonElement>) => {
-		deleteNoteMutation.mutate();
-	};
 
 	return (
 		<div className="w-11/12 m-auto">
@@ -37,7 +32,7 @@ const Note = ({ note }: Props) => {
 					</Button>
 					<Button
 						className="text-xs sm:text-base text-rose-600"
-						onClick={handleDeleteNote}
+						onClick={(e) => context?.handleDeleteNote(note._id, e)}
 					>
 						Delete
 					</Button>

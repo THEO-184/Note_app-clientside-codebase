@@ -37,9 +37,9 @@ export const useCreateNote = () => {
 	});
 };
 
-export const useDeleteNote = (id: string) => {
+export const useDeleteNote = () => {
 	const queryClient = useQueryClient();
-	return useMutation(() => deleteNote(id), {
+	return useMutation((id: string) => deleteNote(id), {
 		onSuccess: (response) => {
 			queryClient.invalidateQueries(["notes"]);
 			messageNotification("success", response.msg);

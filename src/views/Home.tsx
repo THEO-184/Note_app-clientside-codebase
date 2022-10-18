@@ -3,7 +3,11 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 // local imports";
 import LeftColumn from "../components/LeftColumn";
 import RightColumn from "../components/RightColumn";
-import { useCreateNote, useGetAllNotes } from "../services/services";
+import {
+	useCreateNote,
+	useDeleteNote,
+	useGetAllNotes,
+} from "../services/services";
 import { useDebounce } from "../utils/hooks/useDebounce";
 import { AppContextInterface, Note } from "../utils/interfaces";
 
@@ -15,7 +19,7 @@ const HomePage = () => {
 	const [searchNote, setSearchNote] = useState("");
 	const [isUserEditing, setIsUserEditing] = useState(false);
 	const [noteId, setNoteId] = useState("");
-
+	const deleteNoteMutation = useDeleteNote();
 	const { isLoading, count, notes, data, setNotes } = useGetAllNotes();
 	const { save } = useDebounce({
 		title,
@@ -29,7 +33,7 @@ const HomePage = () => {
 
 	const handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value);
-		localStorage.setItem("title", e.currentTarget.value);
+		if (!isUserEditing) localStorage.setItem("title", e.currentTarget.value);
 	};
 	const handleSearchNote = (e: React.FormEvent<HTMLInputElement>) => {
 		const user_input = e.currentTarget.value.toLowerCase();
@@ -45,7 +49,7 @@ const HomePage = () => {
 
 	const handleChangeText = (e: React.FormEvent<HTMLTextAreaElement>) => {
 		setText(e.currentTarget.value);
-		localStorage.setItem("body", e.currentTarget.value);
+		if (!isUserEditing) localStorage.setItem("body", e.currentTarget.value);
 	};
 
 	const handleEraseNotes = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -64,6 +68,14 @@ const HomePage = () => {
 		setTitle(note_details?.title);
 		setText(note_details?.body);
 		setNoteId(id);
+	};
+
+	const handleDeleteNote = (
+		id: string,
+		e: React.FormEvent<HTMLButtonElement>
+	) => {
+		setNoteId(id);
+		deleteNoteMutation.mutate(id);
 	};
 
 	const handleAddNote = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -97,6 +109,7 @@ const HomePage = () => {
 		handleChangeText,
 		handleSearchNote,
 		handleEditeNote,
+		handleDeleteNote,
 		handleAddNote,
 		handleEraseNotes,
 	};
