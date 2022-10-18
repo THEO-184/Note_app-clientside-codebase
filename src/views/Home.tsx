@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import toast from "react-hot-toast";
 
 // local imports";
 import LeftColumn from "../components/LeftColumn";
@@ -74,11 +75,13 @@ const HomePage = () => {
 		id: string,
 		e: React.FormEvent<HTMLButtonElement>
 	) => {
+		toast.loading("deleting note...");
 		setNoteId(id);
 		deleteNoteMutation.mutate(id);
 	};
 
 	const handleAddNote = (e: React.FormEvent<HTMLButtonElement>) => {
+		toast.loading("saving note...");
 		addNoteMutation.mutate({ body: text, title });
 		localStorage.removeItem("title");
 		localStorage.removeItem("body");
