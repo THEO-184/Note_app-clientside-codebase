@@ -22,11 +22,6 @@ const Note = ({ note }: Props) => {
 	const context = useAppContext();
 
 	const handleDeleteNote = (e: React.FormEvent<HTMLButtonElement>) => {
-		context?.setNoteId("");
-		context?.setIsUserEditing(false);
-
-		context?.setText("");
-		context?.setTitle("");
 		deleteNoteMutation.mutate();
 	};
 

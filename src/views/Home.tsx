@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 // local imports";
 import LeftColumn from "../components/LeftColumn";
@@ -17,7 +17,7 @@ const HomePage = () => {
 	const [noteId, setNoteId] = useState("");
 
 	const { isLoading, count, notes, data, setNotes } = useGetAllNotes();
-	const { save, setSave } = useDebounce({
+	const { save } = useDebounce({
 		title,
 		body: text,
 		id: noteId,
@@ -29,6 +29,7 @@ const HomePage = () => {
 
 	const handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value);
+		localStorage.setItem("title", e.currentTarget.value);
 	};
 	const handleSearchNote = (e: React.FormEvent<HTMLInputElement>) => {
 		const user_input = e.currentTarget.value.toLowerCase();
@@ -44,6 +45,7 @@ const HomePage = () => {
 
 	const handleChangeText = (e: React.FormEvent<HTMLTextAreaElement>) => {
 		setText(e.currentTarget.value);
+		localStorage.setItem("body", e.currentTarget.value);
 	};
 
 	const handleEraseNotes = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -66,7 +68,16 @@ const HomePage = () => {
 
 	const handleAddNote = (e: React.FormEvent<HTMLButtonElement>) => {
 		addNoteMutation.mutate({ body: text, title });
+		localStorage.removeItem("title");
+		localStorage.removeItem("body");
 	};
+
+	useEffect(() => {
+		const storageTitle = localStorage.getItem("title");
+		if (storageTitle) setTitle(storageTitle);
+		const storagBody = localStorage.getItem("body");
+		if (storagBody) setText(storagBody);
+	}, []);
 
 	const contextValues: AppContextInterface = {
 		notes,
