@@ -22,26 +22,33 @@ const Note = ({ note }: Props) => {
 	const context = useAppContext();
 
 	const handleDeleteNote = (e: React.FormEvent<HTMLButtonElement>) => {
+		context?.setNoteId("");
 		context?.setIsUserEditing(false);
+
 		context?.setText("");
 		context?.setTitle("");
 		deleteNoteMutation.mutate();
 	};
 
 	return (
-		<div
-			className="w-11/12 m-auto"
-			onClick={(e) => context?.handleEditeNote(note._id, e)}
-		>
+		<div className="w-11/12 m-auto">
 			<Card>
-				<Box className="flex items-center justify-between mb-1 sm:mb-0 ">
-					<p className="font-bold text-black text-xs sm:text-base">{title}</p>
+				<Box className="mb-1 flex items-center justify-between">
 					<Button
-						className="text-xs sm:text-base text-rose-600 z-40"
+						className="text-xs sm:text-base text-yellow-600"
+						onClick={(e) => context?.handleEditeNote(note._id, e)}
+					>
+						Edit
+					</Button>
+					<Button
+						className="text-xs sm:text-base text-rose-600"
 						onClick={handleDeleteNote}
 					>
 						Delete
 					</Button>
+				</Box>
+				<Box className="flex items-center justify-between mb-1 sm:mb-0 ">
+					<p className="font-bold text-black text-xs sm:text-base">{title}</p>
 				</Box>
 				<Box>
 					<Markdown children={body} component={MarkComponent} />

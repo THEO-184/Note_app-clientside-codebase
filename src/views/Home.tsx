@@ -52,7 +52,10 @@ const HomePage = () => {
 		setIsUserEditing(false);
 	};
 
-	const handleEditeNote = (id: string, e: React.FormEvent<HTMLDivElement>) => {
+	const handleEditeNote = (
+		id: string,
+		e: React.FormEvent<HTMLButtonElement>
+	) => {
 		const note_details = notes.find((note) => note._id === id);
 		if (!note_details) return;
 		setIsUserEditing(true);
@@ -75,6 +78,7 @@ const HomePage = () => {
 		searchNote,
 		save,
 		setIsUserEditing,
+		setNoteId,
 		setSearchNote,
 		setTitle,
 		setText,

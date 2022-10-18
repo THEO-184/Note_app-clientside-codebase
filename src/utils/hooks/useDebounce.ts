@@ -11,10 +11,11 @@ interface Props {
 
 export const useDebounce = ({ title, body, id, isUserEditing }: Props) => {
 	const { updateNoteMutation, save, setSave } = useUpdateNote(id);
+
 	useEffect(() => {
-		setSave("saving...");
 		let updateNote: NodeJS.Timeout;
 		if (isUserEditing && id) {
+			setSave("saving...");
 			updateNote = setTimeout(() => {
 				updateNoteMutation.mutate({ body, title });
 			}, 500);
