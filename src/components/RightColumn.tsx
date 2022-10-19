@@ -61,10 +61,7 @@ const RightColumn = () => {
                 <Typography as="h4" className="font-bold">
                     {context?.title}
                 </Typography>
-                <Markdown
-                    children={context?.text!}
-                    component={MarkComponent}
-                />
+                <Markdown children={context?.text!} component={MarkComponent} />
             </Box>
         </Box>
     );

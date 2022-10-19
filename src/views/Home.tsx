@@ -1,9 +1,4 @@
-import React, {
-    createContext,
-    useState,
-    useContext,
-    useEffect,
-} from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 // local imports";
@@ -26,8 +21,7 @@ const HomePage = () => {
     const [isUserEditing, setIsUserEditing] = useState(false);
     const [noteId, setNoteId] = useState('');
     const deleteNoteMutation = useDeleteNote();
-    const { isLoading, count, notes, data, setNotes } =
-        useGetAllNotes();
+    const { isLoading, count, notes, data, setNotes } = useGetAllNotes();
     const { save } = useDebounce({
         title,
         body: text,
@@ -38,16 +32,12 @@ const HomePage = () => {
 
     const isFetchingNotes = isLoading;
 
-    const handleChangeTitle = (
-        e: React.FormEvent<HTMLInputElement>
-    ) => {
+    const handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value);
         if (!isUserEditing)
             localStorage.setItem('title', e.currentTarget.value);
     };
-    const handleSearchNote = (
-        e: React.FormEvent<HTMLInputElement>
-    ) => {
+    const handleSearchNote = (e: React.FormEvent<HTMLInputElement>) => {
         const user_input = e.currentTarget.value.toLowerCase();
         const filterNotes = data?.notes.filter(
             (note) =>
@@ -59,17 +49,12 @@ const HomePage = () => {
         setSearchNote(e.currentTarget.value);
     };
 
-    const handleChangeText = (
-        e: React.FormEvent<HTMLTextAreaElement>
-    ) => {
+    const handleChangeText = (e: React.FormEvent<HTMLTextAreaElement>) => {
         setText(e.currentTarget.value);
-        if (!isUserEditing)
-            localStorage.setItem('body', e.currentTarget.value);
+        if (!isUserEditing) localStorage.setItem('body', e.currentTarget.value);
     };
 
-    const handleEraseNotes = (
-        e: React.FormEvent<HTMLButtonElement>
-    ) => {
+    const handleEraseNotes = (e: React.FormEvent<HTMLButtonElement>) => {
         setText('');
         setTitle('');
         setIsUserEditing(false);

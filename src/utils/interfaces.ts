@@ -24,10 +24,15 @@ export type PolymorphicComponentProp<
 > = React.PropsWithChildren<Props & AsProps<T>> &
     Omit<React.ComponentPropsWithoutRef<T>, PropsToOmit<T, Props>>;
 
+<<<<<<< HEAD
 export type PropsToOmit<
     T extends React.ElementType,
     P
 > = keyof (AsProps<T> & P);
+=======
+export type PropsToOmit<T extends React.ElementType, P> = keyof (AsProps<T> &
+    P);
+>>>>>>> b8a57b80755f21a2a6f71bcfb2bef489f19e5b9d
 
 export interface AppContextInterface {
     notes: Note[];
@@ -44,9 +49,13 @@ export interface AppContextInterface {
     setTitle: React.Dispatch<React.SetStateAction<string>>;
     setText: React.Dispatch<React.SetStateAction<string>>;
     handleChangeTitle: (e: React.FormEvent<HTMLInputElement>) => void;
+<<<<<<< HEAD
     handleChangeText: (
         e: React.FormEvent<HTMLTextAreaElement>
     ) => void;
+=======
+    handleChangeText: (e: React.FormEvent<HTMLTextAreaElement>) => void;
+>>>>>>> b8a57b80755f21a2a6f71bcfb2bef489f19e5b9d
     handleSearchNote: (e: React.FormEvent<HTMLInputElement>) => void;
     handleEditeNote: (
         id: string,

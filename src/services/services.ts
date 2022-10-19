@@ -1,22 +1,10 @@
 import { useState } from 'react';
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-} from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 // local imports
-import {
-    createNote,
-    deleteNote,
-    getAllNotes,
-    updateNote,
-} from './apis';
+import { createNote, deleteNote, getAllNotes, updateNote } from './apis';
 import { Note } from '../utils/interfaces';
-import {
-    getErrorMessage,
-    messageNotification,
-} from '../utils/functions';
+import { getErrorMessage, messageNotification } from '../utils/functions';
 
 export const useGetAllNotes = () => {
     const [notes, setNotes] = useState<Note[]>([]);

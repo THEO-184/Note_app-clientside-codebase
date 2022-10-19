@@ -26,17 +26,13 @@ const Note = ({ note }: Props) => {
                 <Box className="mb-1 flex items-center justify-between">
                     <Button
                         className="text-xs sm:text-base text-yellow-600"
-                        onClick={(e) =>
-                            context?.handleEditeNote(note._id, e)
-                        }
+                        onClick={(e) => context?.handleEditeNote(note._id, e)}
                     >
                         Edit
                     </Button>
                     <Button
                         className="text-xs sm:text-base text-rose-600"
-                        onClick={(e) =>
-                            context?.handleDeleteNote(note._id, e)
-                        }
+                        onClick={(e) => context?.handleDeleteNote(note._id, e)}
                     >
                         Delete
                     </Button>
@@ -47,10 +43,7 @@ const Note = ({ note }: Props) => {
                     </p>
                 </Box>
                 <Box>
-                    <Markdown
-                        children={body}
-                        component={MarkComponent}
-                    />
+                    <Markdown children={body} component={MarkComponent} />
                     <p>
                         <small className="text-xs  text-gray-500">
                             last updated {date_updated}
