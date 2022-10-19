@@ -1,5 +1,4 @@
-import { updateNote } from '../../services/apis';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useUpdateNote } from '../../services/services';
 
 interface Props {
