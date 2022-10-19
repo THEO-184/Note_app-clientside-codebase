@@ -1,23 +1,23 @@
-import React from "react";
+import React from 'react';
 
 // local imports
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 
 interface Props {
-	children: string;
-	component: any;
+    children: string;
+    component: any;
 }
 
 const Markdown = ({ children, component }: Props) => {
-	return (
-		<ReactMarkdown
-			className="text-xs sm:text-base"
-			children={children}
-			components={{
-				code: component,
-			}}
-		/>
-	);
+    return (
+        <ReactMarkdown
+            className="text-xs sm:text-base"
+            children={children}
+            components={{
+                code: component,
+            }}
+        />
+    );
 };
 
 export default Markdown;

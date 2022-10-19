@@ -1,72 +1,72 @@
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 // local imports
-import { createNote, deleteNote, getAllNotes, updateNote } from "./apis";
-import { Note } from "../utils/interfaces";
-import { getErrorMessage, messageNotification } from "../utils/functions";
+import { createNote, deleteNote, getAllNotes, updateNote } from './apis';
+import { Note } from '../utils/interfaces';
+import { getErrorMessage, messageNotification } from '../utils/functions';
 
 export const useGetAllNotes = () => {
-	const [notes, setNotes] = useState<Note[]>([]);
-	const [count, setCount] = useState(0);
-	const { isLoading, data } = useQuery(["notes"], getAllNotes, {
-		onSuccess: (response) => {
-			setNotes(response.notes);
-			setCount(response.count);
-		},
-		onError: (error) => {
-			const message = getErrorMessage(error);
-			messageNotification("error", message);
-		},
-	});
+    const [notes, setNotes] = useState<Note[]>([]);
+    const [count, setCount] = useState(0);
+    const { isLoading, data } = useQuery(['notes'], getAllNotes, {
+        onSuccess: (response) => {
+            setNotes(response.notes);
+            setCount(response.count);
+        },
+        onError: (error) => {
+            const message = getErrorMessage(error);
+            messageNotification('error', message);
+        },
+    });
 
-	return { isLoading, notes, count, data, setNotes };
+    return { isLoading, notes, count, data, setNotes };
 };
 
 export const useCreateNote = () => {
-	const queryClient = useQueryClient();
-	return useMutation(createNote, {
-		onSuccess: () => {
-			queryClient.invalidateQueries(["notes"]);
-			messageNotification("success", "note saved successfully");
-		},
-		onError: (error) => {
-			const message = getErrorMessage(error);
-			messageNotification("error", message);
-		},
-	});
+    const queryClient = useQueryClient();
+    return useMutation(createNote, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['notes']);
+            messageNotification('success', 'note saved successfully');
+        },
+        onError: (error) => {
+            const message = getErrorMessage(error);
+            messageNotification('error', message);
+        },
+    });
 };
 
 export const useDeleteNote = () => {
-	const queryClient = useQueryClient();
-	return useMutation((id: string) => deleteNote(id), {
-		onSuccess: (response) => {
-			queryClient.invalidateQueries(["notes"]);
-			messageNotification("success", response.msg);
-		},
-		onError: (error) => {
-			const message = getErrorMessage(error);
-			messageNotification("error", message);
-		},
-	});
+    const queryClient = useQueryClient();
+    return useMutation((id: string) => deleteNote(id), {
+        onSuccess: (response) => {
+            queryClient.invalidateQueries(['notes']);
+            messageNotification('success', response.msg);
+        },
+        onError: (error) => {
+            const message = getErrorMessage(error);
+            messageNotification('error', message);
+        },
+    });
 };
 
 export const useUpdateNote = (id: string) => {
-	const [save, setSave] = useState("");
-	const queryClient = useQueryClient();
-	const updateNoteMutation = useMutation(
-		(data: Pick<Note, "title" | "body">) => updateNote(id, data),
-		{
-			onSuccess: () => {
-				setSave("saved");
-				queryClient.invalidateQueries(["notes"]);
-			},
-			onError: (error) => {
-				const message = getErrorMessage(error);
-				messageNotification("error", message);
-			},
-		}
-	);
+    const [save, setSave] = useState('');
+    const queryClient = useQueryClient();
+    const updateNoteMutation = useMutation(
+        (data: Pick<Note, 'title' | 'body'>) => updateNote(id, data),
+        {
+            onSuccess: () => {
+                setSave('saved');
+                queryClient.invalidateQueries(['notes']);
+            },
+            onError: (error) => {
+                const message = getErrorMessage(error);
+                messageNotification('error', message);
+            },
+        }
+    );
 
-	return { updateNoteMutation, save, setSave };
+    return { updateNoteMutation, save, setSave };
 };

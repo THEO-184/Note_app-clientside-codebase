@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 @layer utilities {
-	.left-col::-webkit-scrollbar {
-		@apply hidden;
-	}
+    .left-col::-webkit-scrollbar {
+        @apply hidden;
+    }
 }
 
 @layer base {
-	body {
-		@apply bg-gray-100;
-	}
+    body {
+        @apply bg-gray-100;
+    }
 }
