@@ -9,16 +9,7 @@ interface Props {
     isUserEditing: boolean;
 }
 
-<<<<<<< HEAD
-export const useDebounce = ({
-    title,
-    body,
-    id,
-    isUserEditing,
-}: Props) => {
-=======
 export const useDebounce = ({ title, body, id, isUserEditing }: Props) => {
->>>>>>> b8a57b80755f21a2a6f71bcfb2bef489f19e5b9d
     const { updateNoteMutation, save, setSave } = useUpdateNote(id);
 
     useEffect(() => {
